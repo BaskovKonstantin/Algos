@@ -1,0 +1,73 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+	int i = 0, j = 0, e = 0;
+	vector <char> Animal;
+	vector <int> AnimalNumber;
+	int Answer[100000];
+	bool Possible = 1, Next = 0, Stop;
+	char  Zoo[100000];
+
+	cin.getline(Zoo, 100000);
+	while (Zoo[i] != 0) {
+
+		Answer[i] = 0;
+
+		Animal.push_back(Zoo[i]);
+		if (islower(Zoo[i])) {
+			e++;
+			AnimalNumber.push_back(e);
+		}
+		else {
+			AnimalNumber.push_back(i);
+		}
+		if (j >= 1) {
+			if (isupper(Animal[j]) && (toupper(Animal[j - 1]) == Animal[j]) && (islower(Animal[j - 1]))) {
+
+
+				Answer[AnimalNumber[j]] = AnimalNumber[j - 1] ;
+
+				AnimalNumber.pop_back();
+				AnimalNumber.pop_back();
+
+				Animal.pop_back();
+				Animal.pop_back();
+				j -= 2;
+			}
+			else {
+				if (islower(Animal[j])&&(tolower(Animal[j-1])==Animal[j]) && (isupper(Animal[j - 1]))) {
+					
+					Answer[AnimalNumber[j - 1]] = AnimalNumber[j];
+					
+
+					AnimalNumber.pop_back();
+					AnimalNumber.pop_back();
+
+					Animal.pop_back();
+					Animal.pop_back();
+					j -= 2;
+				} 
+			}
+		}
+		i++;
+		j++;
+		
+	}
+
+	if (Animal.size() == 0) {
+		cout << "Possible" << endl;
+		for (j = 0; j <= i-1; j++) {
+			if (Answer[j] != 0) {
+				cout << Answer[j];
+				cout << " ";
+			}
+		
+		}
+	}
+	else {
+		cout << "Impossible" << endl;
+	}
+}
