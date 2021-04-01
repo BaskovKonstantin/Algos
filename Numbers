@@ -7,23 +7,32 @@ using namespace std;
 using namespace std;
 
 bool comp(string a, string b) {
-	return (a+b) > (b+a);
+	return (a + b) > (b + a);
 }
-
 int main() {
 	int  j, i = 0;
-	string  Input, var;
+	string  Input, buffer;
 	vector<string> answer;
 	while (1) {
 		getline(cin, Input);
 		if (Input.empty()) {
 			break;
 		}
-		answer.push_back(Input); 
+		answer.push_back(Input);
 	}
-	sort(answer.begin(), answer.end(),comp);
-	for (int g = 0; g < answer.size(); g++) {
-		cout << answer[g];
+	for (j = answer.size() - 1; j > 0; j--) {
+		i = 0;
+		while (i <= answer.size() - 2) {
+			if (answer[i + 1] + answer[i] > answer[i] + answer[i + 1]) {
+				buffer = answer[i + 1];
+				answer[i + 1] = answer[i];
+				answer[i] = buffer;
+			}
+			i++;
+		}
+	}
+	for (i = 0; i <= answer.size()-1; i++) {
+		cout << answer[i];
 	}
 	return 0;
 }
