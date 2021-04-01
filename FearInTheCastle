@@ -1,0 +1,60 @@
+#include <map>
+#include <vector>
+#include <iostream>
+#include <algorithm> 
+
+using namespace std;
+
+bool comp1(pair <char, long long int> a, pair <char, long long int> b) {
+    return a.first > b.first;
+}
+bool comp2(pair <char, long long int> a, pair <char, long long int> b) {
+    return a.second > b.second;
+}
+
+int main()
+{
+    map<char, long long int> nightmareData;
+    vector <pair <char, long long int>> Magic;
+    pair<char, long long int> aPair;
+    int count = 0, counter = 0;
+
+    string Input, StringPair;
+
+    cin >> Input;
+
+    for (int i = 0; i <= 25; i++) {
+        cin >> nightmareData[char(i + 97)];
+    }
+    for (int i = 0; i <= Input.length() - 1; i++) {
+        aPair.first = Input[i];
+        aPair.second = nightmareData[Input[i]];
+        Magic.push_back(aPair);
+    }
+
+    sort(Magic.begin(), Magic.end(), comp1);
+    stable_sort(Magic.begin(), Magic.end(), comp2);
+
+    for (int i = 1; i <= Magic.size() - 1; i++) {
+        if (Magic[i].first == Magic[i - 1].first) {
+            counter++;
+            if (counter == 1) {
+                StringPair += Magic[i].first;
+                Magic[i].second = -1;
+                Magic[i - 1].second = -1;
+            }
+        }
+        else {
+            counter = 0;
+        }
+    }
+    cout << StringPair;
+    for (int i = 0; i <= Magic.size() - 1; i++) {
+        if (Magic[i].second >= 0) {
+            cout << Magic[i].first;
+        }
+    }
+    for (int i = StringPair.length() - 1; i >= 0; i--) {
+        cout << StringPair[i];
+    }
+}
