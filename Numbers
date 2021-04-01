@@ -1,0 +1,29 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm> 
+
+using namespace std;
+using namespace std;
+
+bool comp(string a, string b) {
+	return (a+b) > (b+a);
+}
+
+int main() {
+	int  j, i = 0;
+	string  Input, var;
+	vector<string> answer;
+	while (1) {
+		getline(cin, Input);
+		if (Input.empty()) {
+			break;
+		}
+		answer.push_back(Input); 
+	}
+	sort(answer.begin(), answer.end(),comp);
+	for (int g = 0; g < answer.size(); g++) {
+		cout << answer[g];
+	}
+	return 0;
+}
