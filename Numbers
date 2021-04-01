@@ -4,7 +4,6 @@
 #include <algorithm> 
 
 using namespace std;
-using namespace std;
 
 bool comp(string a, string b) {
 	return (a + b) > (b + a);
@@ -14,23 +13,14 @@ int main() {
 	string  Input, buffer;
 	vector<string> answer;
 	while (1) {
-		getline(cin, Input);
-		if (Input.empty()) {
+		if (cin >> Input) {
+			answer.push_back(Input);
+		}
+		else {
 			break;
 		}
-		answer.push_back(Input);
 	}
-	for (j = answer.size() - 1; j > 0; j--) {
-		i = 0;
-		while (i <= answer.size() - 2) {
-			if (answer[i + 1] + answer[i] > answer[i] + answer[i + 1]) {
-				buffer = answer[i + 1];
-				answer[i + 1] = answer[i];
-				answer[i] = buffer;
-			}
-			i++;
-		}
-	}
+	sort(answer.begin(), answer.end(), comp);
 	for (i = 0; i <= answer.size()-1; i++) {
 		cout << answer[i];
 	}
